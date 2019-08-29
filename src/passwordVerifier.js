@@ -22,5 +22,4 @@ const makeVerifier = (rules) => {
   return verifier;
 };
 
-
 exports.makeVerifier = makeVerifier;
