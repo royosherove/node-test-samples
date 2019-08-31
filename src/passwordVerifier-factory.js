@@ -3,17 +3,18 @@ const Verifier = () => {
   return {
     addRule: rule =>  __rules.push(rule) ,
     verify: input => {
-      for (let i = 0; i < __rules.length; i++) {
-        const rule = __rules[i];
-        const resultObj = rule(input);
-        if (resultObj.result === false) {
-          return resultObj;
+      const reducer = ({errors, reasons}, rule) => {
+        const result = rule(input);
+        if (result.result === false) {
+          return {errors:[...errors, result], reasons:reasons + result.reason}
         }
-      }
-      return {
-        result: true,
-        reason: ''
+          return {errors, reasons}
       };
+        const payload = {errors:[], reasons: ''};
+        const reduced =  __rules.reduce(reducer, payload);
+        return { result: reduced.errors.length===0,
+            reason: reduced.reasons
+        };
     },
   };
 };
