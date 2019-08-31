@@ -1,10 +1,11 @@
 const assert = require('chai').assert;
-const {addRule, verify} = require('../src/passwordVerifier-exports');
+const {addRule, verify, clearRules} = require('../src/passwordVerifier-exports');
 const { describe, it, beforeEach } = require('mocha');
 
 describe('Password Verifier exports', () => {
   let result;
   beforeEach(() => {
+    clearRules(); // since we are static..
     result = verify('any input');
   });
   describe('by default exports', () => {
@@ -32,8 +33,7 @@ describe('Password Verifier exports', () => {
   describe('Adding Simple Passing Rule', () => {
     let result;
     beforeEach(() => {
-      const newRule = input => {
-        return  { result: true, reason: 'passing rule' }};
+      const newRule = input => ({ result: true, reason: 'passing rule' });
       addRule(newRule);
       result = verify('any input');
     });
