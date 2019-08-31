@@ -1,6 +1,6 @@
-const {assert} = require('chai');
-const verifier =  require('../src/passwordVerifier-exports');
+const { assert } = require('chai');
 const { describe, it, beforeEach } = require('mocha');
+const verifier = require('../src/passwordVerifier-exports');
 
 describe('Password Verifier exports', () => {
   let result;
@@ -13,7 +13,7 @@ describe('Password Verifier exports', () => {
       assert.equal(result.result, true);
     });
     it('should have an empty reason', () => {
-      assert.equal(result.reason ,'');
+      assert.equal(result.reason, '');
     });
   });
   describe('Adding Simple Failing Rule exports', () => {
