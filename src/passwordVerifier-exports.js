@@ -1,16 +1,22 @@
 const __rules = [];
-exports.clearRules = () => { __rules.length = 0; };
-exports.addRule = rule => __rules.push(rule);
-exports.verify = input => {
-  for (let i = 0; i < __rules.length; i++) {
-    const rule = __rules[i];
-    const resultObj = rule(input);
-    if (resultObj.result === false) {
-      return resultObj;
-    }
-  }
+
+const verify = (rules, input) => {
+  const payload = { errors: [], reasons: '', input };
+  const reduced = rules.reduce(reducer, payload);
   return {
-    result: true,
-    reason: ''
+    result: reduced.errors.length === 0,
+    reason: reduced.reasons
   };
 };
+
+const reducer = ({ errors, reasons, input }, rule) => {
+  const result = rule(input);
+  if (result.result === false) {
+    return { errors: [...errors, result], reasons: reasons + result.reason };
+  }
+  return { errors, reasons, input };
+};
+
+exports.clearRules = () => { __rules.length = 0; };
+exports.addRule = rule => __rules.push(rule);
+exports.verify = input => verify(__rules,input) ;
