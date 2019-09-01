@@ -47,4 +47,13 @@ describe('Password Verifier class', () => {
       assert.equal(result.reason, '');
     });
   });
+  it('should use two different instances easily', () => {
+    const v1 = new Verifier();
+    v1.addRule(input => ({result:false, reason: 'fake'}));
+    const v2 = new Verifier();
+    const res1 = v1.verify('a');
+    const res2 = v2.verify('a');
+    assert.equal(res1.result, false);
+    assert.equal(res2.result, true);
+  });
 });
