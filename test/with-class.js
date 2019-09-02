@@ -10,7 +10,7 @@ describe('Password Verifier class', () => {
   });
   describe('by default class', () => {
     it('should not fail', () => {
-      assert.equal(result.result, true);
+      assert.strictEqual(result.result, true);
     });
     it('should have an empty reason', () => {
       assert.equal(result.reason, '');
@@ -24,10 +24,10 @@ describe('Password Verifier class', () => {
       result = verifier.verify('any input');
     });
     it('the result will be false', () => {
-      assert.equal(result.result, false);
+      assert.strictEqual(result.result, false);
     });
     it(`the reason will be the rule's reason`, () => {
-      assert.equal(result.reason, 'fake rule');
+      assert.strictEqual(result.reason, 'fake rule');
     });
   });
   describe('Adding Simple Passing Rule class', () => {
@@ -53,7 +53,7 @@ describe('Password Verifier class', () => {
     const v2 = new Verifier();
     const res1 = v1.verify('a');
     const res2 = v2.verify('a');
-    assert.equal(res1.result, false);
-    assert.equal(res2.result, true);
+    assert(res1.result=== false);
+    assert(res2.result=== true);
   });
 });
