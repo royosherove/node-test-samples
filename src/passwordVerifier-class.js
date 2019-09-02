@@ -1,3 +1,4 @@
+// export class  Verifier {
 module.exports = class Verifier {
     constructor() {
         this.__rules = [];
